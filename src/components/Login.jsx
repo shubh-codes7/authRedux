@@ -73,7 +73,8 @@ export default function Login(){
             if(user[0].password === password){
                 setStatus('success')
                 setMessage("Form submitted successfully!")
-            dispatch(setProfileDetails({
+                sessionStorage.setItem('accessToken', "alskdfj;alsyu")
+                dispatch(setProfileDetails({
                 firstName: fname,
                 email: user[0].email,
                 password: password
