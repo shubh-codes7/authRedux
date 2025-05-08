@@ -55,6 +55,7 @@ export default function Signup(){
         const existingUsers = JSON.parse(localStorage.getItem("users")) || []
         const updatedUsers = JSON.stringify([...existingUsers, profile])
         localStorage.setItem('users', updatedUsers)
+        sessionStorage.setItem('accessToken', "alskdfj;alsyu")
 
         setProfile({
             firstName: '',

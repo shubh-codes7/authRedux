@@ -56,6 +56,8 @@ export default function Login(){
                 if(data?.id){
                     dispatch(setProfileDetails(data));
                     localStorage.setItem("userId", data.id);
+                    sessionStorage.setItem("accessToken", data.accessToken);
+                    console.log(data)
                     navigate('/profile');
                 }else {
                     setStatus('err')

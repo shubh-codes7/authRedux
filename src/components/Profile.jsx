@@ -1,10 +1,13 @@
-
 import {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {setProfileDetails} from '../slices/profileSlice.js'
 
 export default function Profile(){
+
+    const token = sessionStorage.getItem('accessToken')
+
+    
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -16,6 +19,7 @@ export default function Profile(){
 
     function handleLogout(){
         localStorage.removeItem("userId")
+        sessionStorage.removeItem("accessToken")
         setUserId(null)
         setProfile({})
         dispatch(setProfileDetails({
@@ -28,7 +32,7 @@ export default function Profile(){
     }
 
     useEffect(()=>{
-        if(userId){
+        if(token && userId){
             fetch(`https://dummyjson.com/users/${userId}`)
             .then(res => res.json())
             .then(data => setProfile(data))
@@ -37,6 +41,11 @@ export default function Profile(){
         
     }, [userId])
 
+
+    if (!token) {
+        return <h2 style={{ textAlign: 'center', color: 'red', margin:"200px" }}>You are not logged in</h2>
+    }   //condtional rendering, If token is not there, user won't see page
+    
 
     return(
         <div className="profile">
